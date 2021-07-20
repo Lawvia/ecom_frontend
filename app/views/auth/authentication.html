@@ -1,0 +1,84 @@
+{{ include "partial/header" }}
+{{ include "partial/navbar" }}
+<style>
+    .field-icon {
+      float: right;
+      margin-right: 15px;
+      margin-top: -25px;
+      position: relative;
+      z-index: 2;
+    }
+</style>
+<body>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="col lg-6">
+                    <form id="register_form" role="form" method="POST" action="/auth/register">
+                        <div class="form-group">
+                            <label for="username"><b>Username</b></label>
+                            <input id="username" type="text" name="username" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newpassword"><b>Password</b></label>
+                            <input id="newpassword" type="password" name="new_password" class="form-control" required>
+                            <span toggle="#newpassword" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                        
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmpassword"><b>Confirm Password</b></label>
+                            <input id="confirmpassword" type="password" name="confirm_password" class="form-control"
+                                required>
+                            <span toggle="#confirmpassword" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+    
+                        </div>
+                        <div class="form-group" style="color:red;">{{ $.errorRegister }}</div>
+                        <div class="form-group" style="color:green;">{{ $.success }}</div>
+                        <input id="register_button" type="submit" value="Register" class="btn btn-lg btn-block btn-outline-dark">
+                    </form>
+                </div>
+                <div class="col lg-6"></div>
+                <div class="col lg-6">
+                    <form id="login_form" role="form" method="POST" action="/auth/login">
+                        <div class="form-group">
+                            <label for="username_login"><b>Username</b></label>
+                            <input id="username_login" type="text" name="username" class="form-control" required>
+    
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><b>Password</b></label>
+                            <input id="password" type="password" name="password" class="form-control" required>
+                            <span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                        
+                        </div>
+                        <div class="form-group" style="color:red;">{{ $.errorLogin }}</div>
+                        <input id="change_password_button" type="submit" value="Login" class="btn btn-lg float-right"
+                            style="background:#212529;color:#fff">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{ include "partial/footer" }}
+    {{ include "partial/javascript" }}
+    <script>
+        function posting(data) {
+            $.ajax({
+                method: "POST",
+                url: data.url,
+                data: data.param
+            }).done(data.done);
+        }
+        $(".toggle-password").click(function() {
+            $(this).toggleClass("fa-eye-slash fa-eye");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+            input.attr("type", "text");
+            } else {
+            input.attr("type", "password");
+            }
+        });
+        $(document).ready(function () {
+            console.log("login register page")
+        })
+    </script>

@@ -1,0 +1,89 @@
+{{ include "partial/header" }}
+{{ include "partial/navbar" }}
+<body>
+    <section class="py-5">
+        <div id="content" class="container-fluid">
+            <div id="background-content">
+                <div class="card-header py-3 d-flex" style="justify-content: space-between;margin-bottom: 10px;">
+                    <div>
+                        <h4 class="h4 mb-2" style="font-weight: bold;">Transaction List&nbsp;<i class="fas fa-chart-line"></i></h4>
+                        <p class="mb-4">List of items purchased</p>
+                    </div>
+                    
+                </div>
+
+                <table id="groups_table" class="table table-striped table-bordered" style="width: 100%;font-size:14px;">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Purchase Key</th>
+                            <th>Address</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{if gt $.qty 0}}
+                        {{range $.cart}}
+                        <tr>
+                            <td>{{.PurchaseKey}}</td>
+                            <td>{{.Address}}</td>
+                            <td>IDR.{{.Total}}</td>
+                            <td><a class="badge badge-pill badge-warning">IN PROGRESS</a></td>
+                            <td><button class='btn btn-md fix-btn' onclick='view_detail({{.Detail}})'  title='See detail'  style="background:#212529;color:#fff"><i class='fas fa-shopping-bag'></i></button></td>
+                        </tr>
+                        {{end}}
+                        {{else}}
+                            <tr><td colspan="5"><i>Empty</i></td></tr>
+                        {{end}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    {{ include "modals/modal_show_detail" }}
+    {{ include "partial/footer" }}
+    {{ include "partial/javascript" }}
+    <script>
+        function posting(data) {
+            $.ajax({
+                method: "POST",
+                url: data.url,
+                data: data.param
+            }).done(data.done);
+        }
+        
+        $(document).ready(function () {
+            console.log("review page")
+        })
+
+        function view_detail(data){
+            // console.log("view detail", data)
+            if (data.length > 0){
+                var tabel = "";
+                tabel += `<table id="groups_table" class="table table-striped table-bordered" style="width: 100%;font-size:14px;">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>`;
+                    tabel += `<tbody>`
+                        for (var i=0;i<data.length;i++){
+                            tabel += `<tr>
+                            <td>`+data[i].item_name+`</td>`;
+                            tabel += `<td>`+data[i].qty+`</td>
+                            </tr>`;
+                        }	
+                tabel += `</tbody>
+                </table>`;
+                
+                $('#listUser').html(tabel);
+            }else{
+                $('#listUser').html("<center><i>Empty</i></center>");
+            }
+
+            $('#showUser').modal('show');
+        }
+
+    </script>

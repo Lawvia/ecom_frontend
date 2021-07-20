@@ -1,0 +1,37 @@
+#background-content{
+    background: #fff;
+    height: 100%;
+    padding:20px;
+    box-shadow: 0px 0px 7px 1px #adadad50
+}
+.bar-button{
+    margin-bottom:20px;
+}
+.dynamic_textarea{
+    box-sizing: border-box;
+    max-height: 134px; /* optional, but recommended */
+    min-height: 38px;
+    overflow-x: hidden;
+}
+.table thead td{
+    text-align: center;
+    vertical-align: middle !important;
+}
+.fix-btn{
+    width: 24px;
+    height: 24px;
+    padding: 0px;
+    font-size: 12px;
+    margin-left: 2px;
+}
+.not-set{
+    color:#aaaaaa;
+}
+
+#background-content{
+    overflow: auto;
+}
+
+.hand-hover{
+    cursor: grab;
+}

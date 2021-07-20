@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+   {{ include "partial/header" }}
+   {{ template "css_header" .}}
+   {{ template "script_header" .}}
+</head>
+<body>
+   {{ include "partial/navbar" }}
+   {{ template "content" .}}
+   
+{{ template "modals" .}}
+{{ include "partial/javascript" }}
+{{ template "script_footer" .}}
+{{ include "partial/footer" }}

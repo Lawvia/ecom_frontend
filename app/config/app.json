@@ -1,0 +1,4 @@
+{
+    "APP_PORT": 2020,
+    "APP_BASE_URL": "http://localhost:2020/"
+}
